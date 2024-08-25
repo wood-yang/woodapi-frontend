@@ -1,5 +1,4 @@
 import { Footer } from '@/components';
-import { login } from '@/services/ant-design-pro/api';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import {
   AlipayCircleOutlined,
@@ -13,15 +12,15 @@ import {
   LoginForm,
   ProFormCaptcha,
   ProFormCheckbox,
-  ProFormText,
+  ProFormText, useIntl,
 } from '@ant-design/pro-components';
 import { history, useModel, Helmet } from '@umijs/max';
 import { Alert, message, Tabs } from 'antd';
 import Settings from '../../../../config/defaultSettings';
 import React, { useState } from 'react';
-import { flushSync } from 'react-dom';
 import { createStyles } from 'antd-style';
 import {userLoginUsingPOST} from "@/services/woodapi-backend/userController";
+import {flushSync} from "react-dom";
 const useStyles = createStyles(({ token }) => {
   return {
     action: {
@@ -82,10 +81,23 @@ const LoginMessage: React.FC<{
   );
 };
 const Login: React.FC = () => {
-  const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
+  const [userLoginState, setUserLoginState] = useState<API.BaseResponseLoginUserVO_>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles } = useStyles();
+  const intl = useIntl();
+
+  const fetchUserInfo = async () => {
+    const userInfo = await initialState?.fetchUserInfo?.();
+    if (userInfo) {
+      flushSync(() => {
+        setInitialState((s) => ({
+          ...s,
+          currentUser: userInfo,
+        }));
+      });
+    }
+  };
   const handleSubmit = async (values: API.UserLoginRequest) => {
     try {
       // 登录
@@ -93,20 +105,51 @@ const Login: React.FC = () => {
         ...values,
       });
       if (res.data) {
+        const defaultLoginSuccessMessage = intl.getMessage('pages.login.success', '登录成功！'
+        );
+        message.success(defaultLoginSuccessMessage);
+        await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/');
-        setInitialState({
-          loginUser: res.data
-        });
         return;
       }
+      console.log(res);
+      // 如果失败去设置用户错误信息
+      setUserLoginState(res);
     } catch (error) {
-      const defaultLoginFailureMessage = '登录失败，请重试！';
+      const defaultLoginFailureMessage = intl.getMessage('pages.login.failure', '登录失败，请重试！'
+      );
       console.log(error);
       message.error(defaultLoginFailureMessage);
     }
-  };
-  const { status, type: loginType } = userLoginState;
+  }
+  // const handleSubmit = async (values: API.UserLoginRequest) => {
+  //   try {
+  //     // 登录
+  //     const res = await userLoginUsingPOST({
+  //       ...values,
+  //     });
+  //     if (res.data) {
+  //       const urlParams = new URL(window.location.href).searchParams;
+  //       const href = window.location.href;
+  //       if (urlParams.get('redirect') || '/') {
+  //         history.push(urlParams.get('redirect') || '/');
+  //       }
+  //       else {
+  //         history.push(urlParams.get('redirect') || '/');
+  //       }
+  //       setInitialState({
+  //         loginUser: res.data
+  //       });
+  //       return;
+  //     }
+  //   } catch (error) {
+  //     const defaultLoginFailureMessage = '登录失败，请重试！';
+  //     console.log(error);
+  //     message.error(defaultLoginFailureMessage);
+  //   }
+  // };
+  // const { status, type: loginType } = userLoginState;
   return (
     <div className={styles.container}>
       <Helmet>
@@ -152,9 +195,9 @@ const Login: React.FC = () => {
             ]}
           />
 
-          {status === 'error' && loginType === 'account' && (
-            <LoginMessage content={'错误的用户名和密码(admin/ant.design)'} />
-          )}
+          {/*{status === 'error' && loginType === 'account' && (*/}
+          {/*  <LoginMessage content={'错误的用户名和密码(admin/ant.design)'} />*/}
+          {/*)}*/}
           {type === 'account' && (
             <>
               <ProFormText
@@ -188,7 +231,7 @@ const Login: React.FC = () => {
             </>
           )}
 
-          {status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误" />}
+          {/*{status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误" />}*/}
           {type === 'mobile' && (
             <>
               <ProFormText

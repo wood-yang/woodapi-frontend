@@ -19,9 +19,9 @@ declare module 'bizcharts-plugin-slider';
 
 declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false;
 
-/**
- * 全局状态类型
- */
-interface InitialState {
-  loginUser?: API.UserVO;
-}
+// /**
+//  * 全局状态类型
+//  */
+// interface InitialState {
+//   loginUser?: API.UserVO;
+// }
