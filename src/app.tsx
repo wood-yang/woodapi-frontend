@@ -6,7 +6,7 @@ import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
 import { requestConfig } from './requestConfig';
 import React from 'react';
-import {getLoginUserUsingGET} from "@/services/woodapi-backend/userController";
+import {getLoginUserUsingGet} from "@/services/woodapi-backend/userController";
 import defaultSettings from "../config/defaultSettings";
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -23,7 +23,7 @@ export async function getInitialState(): Promise<{
   // 当页面首次加载时，获取要全局保存的数据，比如用户登录信息
   const fetchUserInfo = async () => {
     try {
-      const res = await getLoginUserUsingGET();
+      const res = await getLoginUserUsingGet();
       return res.data
     } catch (error) {
       history.push(loginPath);

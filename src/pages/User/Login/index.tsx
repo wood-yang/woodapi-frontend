@@ -19,7 +19,7 @@ import { Alert, message, Tabs } from 'antd';
 import Settings from '../../../../config/defaultSettings';
 import React, { useState } from 'react';
 import { createStyles } from 'antd-style';
-import {userLoginUsingPOST} from "@/services/woodapi-backend/userController";
+import {userLoginUsingPost} from "@/services/woodapi-backend/userController";
 import {flushSync} from "react-dom";
 const useStyles = createStyles(({ token }) => {
   return {
@@ -91,7 +91,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.UserLoginRequest) => {
     try {
       // 登录
-      const res = await userLoginUsingPOST({
+      const res = await userLoginUsingPost({
         ...values,
       });
       if (res.data) {
@@ -116,7 +116,7 @@ const Login: React.FC = () => {
   // const handleSubmit = async (values: API.UserLoginRequest) => {
   //   try {
   //     // 登录
-  //     const res = await userLoginUsingPOST({
+  //     const res = await userLoginUsingPost({
   //       ...values,
   //     });
   //     if (res.data) {

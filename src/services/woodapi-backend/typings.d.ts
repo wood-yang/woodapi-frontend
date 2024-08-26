@@ -11,9 +11,9 @@ declare namespace API {
     message?: string;
   };
 
-  type BaseResponseInterfaceInfoVO_ = {
+  type BaseResponseInterfaceInfo_ = {
     code?: number;
-    data?: InterfaceInfoVO;
+    data?: InterfaceInfo;
     message?: string;
   };
 
@@ -29,15 +29,15 @@ declare namespace API {
     message?: string;
   };
 
-  type BaseResponsePageInterfaceInfo_ = {
+  type BaseResponseObject_ = {
     code?: number;
-    data?: PageInterfaceInfo_;
+    data?: Record<string, any>;
     message?: string;
   };
 
-  type BaseResponsePageInterfaceInfoVO_ = {
+  type BaseResponsePageInterfaceInfo_ = {
     code?: number;
-    data?: PageInterfaceInfoVO_;
+    data?: PageInterfaceInfo_;
     message?: string;
   };
 
@@ -104,7 +104,7 @@ declare namespace API {
     id?: number;
   };
 
-  type getInterfaceInfoVOByIdUsingGETParams = {
+  type getInterfaceInfoByIdUsingGETParams = {
     /** id */
     id?: number;
   };
@@ -124,6 +124,10 @@ declare namespace API {
     id?: number;
   };
 
+  type IdRequest = {
+    id?: number;
+  };
+
   type InterfaceInfo = {
     createTime?: string;
     description?: string;
@@ -132,6 +136,7 @@ declare namespace API {
     method?: string;
     name?: string;
     requestHeader?: string;
+    requestParams?: string;
     responseHeader?: string;
     status?: number;
     updateTime?: string;
@@ -144,9 +149,15 @@ declare namespace API {
     method?: string;
     name?: string;
     requestHeader?: string;
+    requestParams?: string;
     responseHeader?: string;
     url?: string;
     userId?: number;
+  };
+
+  type InterfaceInfoInvokeRequest = {
+    id?: number;
+    userRequestParams?: string;
   };
 
   type InterfaceInfoQueryRequest = {
@@ -157,6 +168,7 @@ declare namespace API {
     name?: string;
     pageSize?: number;
     requestHeader?: string;
+    requestParams?: string;
     responseHeader?: string;
     searchText?: string;
     sortField?: string;
@@ -171,22 +183,9 @@ declare namespace API {
     method?: string;
     name?: string;
     requestHeader?: string;
+    requestParams?: string;
     responseHeader?: string;
     url?: string;
-  };
-
-  type InterfaceInfoVO = {
-    createTime?: string;
-    description?: string;
-    id?: number;
-    method?: string;
-    name?: string;
-    requestHeader?: string;
-    responseHeader?: string;
-    status?: number;
-    updateTime?: string;
-    url?: string;
-    userId?: number;
   };
 
   type LoginUserVO = {
@@ -212,19 +211,6 @@ declare namespace API {
     orders?: OrderItem[];
     pages?: number;
     records?: InterfaceInfo[];
-    searchCount?: boolean;
-    size?: number;
-    total?: number;
-  };
-
-  type PageInterfaceInfoVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
-    records?: InterfaceInfoVO[];
     searchCount?: boolean;
     size?: number;
     total?: number;
@@ -368,10 +354,12 @@ declare namespace API {
   };
 
   type User = {
+    accessKey?: string;
     createTime?: string;
     id?: number;
     isDelete?: number;
     mpOpenId?: string;
+    secretKey?: string;
     unionId?: string;
     updateTime?: string;
     userAccount?: string;
