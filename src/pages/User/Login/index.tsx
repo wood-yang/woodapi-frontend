@@ -1,12 +1,9 @@
 import { Footer } from '@/components';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import {
-  AlipayCircleOutlined,
   LockOutlined,
   MobileOutlined,
-  TaobaoCircleOutlined,
   UserOutlined,
-  WeiboCircleOutlined,
 } from '@ant-design/icons';
 import {
   LoginForm,
@@ -56,22 +53,7 @@ const useStyles = createStyles(({ token }) => {
     },
   };
 });
-const LoginMessage: React.FC<{
-  content: string;
-}> = ({ content }) => {
-  return (
-    <Alert
-      style={{
-        marginBottom: 24,
-      }}
-      message={content}
-      type="error"
-      showIcon
-    />
-  );
-};
 const Login: React.FC = () => {
-  const [userLoginState, setUserLoginState] = useState<API.BaseResponseLoginUserVO_>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles } = useStyles();
@@ -104,8 +86,6 @@ const Login: React.FC = () => {
         return;
       }
       console.log(res);
-      // 如果失败去设置用户错误信息
-      setUserLoginState(res);
     } catch (error) {
       const defaultLoginFailureMessage = intl.getMessage('pages.login.failure', '登录失败，请重试！'
       );
@@ -139,7 +119,6 @@ const Login: React.FC = () => {
   //     message.error(defaultLoginFailureMessage);
   //   }
   // };
-  // const { status, type: loginType } = userLoginState;
   return (
     <div className={styles.container}>
       <Helmet>
@@ -185,9 +164,6 @@ const Login: React.FC = () => {
             ]}
           />
 
-          {/*{status === 'error' && loginType === 'account' && (*/}
-          {/*  <LoginMessage content={'错误的用户名和密码(admin/ant.design)'} />*/}
-          {/*)}*/}
           {type === 'account' && (
             <>
               <ProFormText
@@ -221,7 +197,6 @@ const Login: React.FC = () => {
             </>
           )}
 
-          {/*{status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误" />}*/}
           {type === 'mobile' && (
             <>
               <ProFormText

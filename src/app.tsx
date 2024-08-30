@@ -1,4 +1,4 @@
-import { Footer, Question, AvatarDropdown, AvatarName } from '@/components';
+import { Footer, AvatarDropdown, AvatarName } from '@/components';
 import { LinkOutlined } from '@ant-design/icons';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
@@ -50,8 +50,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
   return {
     // rightContentRender: () => <RightContent />,
     avatarProps: {
-      // src: initialState?.currentUser?.userAvatar,
-      src: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+      src: initialState?.currentUser?.userAvatar,
+      // src: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
       title: <AvatarName />,
       render: (_, avatarChildren) => {
         return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
