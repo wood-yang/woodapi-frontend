@@ -77,12 +77,20 @@ const Login: React.FC = () => {
         ...values,
       });
       if (res.data) {
-        const defaultLoginSuccessMessage = intl.getMessage('pages.login.success', '登录成功！'
-        );
+        const defaultLoginSuccessMessage = intl.getMessage('pages.login.success', '登录成功！');
         message.success(defaultLoginSuccessMessage);
-        await fetchUserInfo();
-        const urlParams = new URL(window.location.href).searchParams;
-        history.push(urlParams.get('redirect') || '/');
+        setInitialState({
+          ...initialState,
+          currentUser: res.data
+        });
+        // await fetchUserInfo();
+        // setTimeout解决2次登录跳转问题
+        setTimeout(()=>{
+          const urlParams = new URL(window.location.href).searchParams;
+          history.push(urlParams.get('redirect') || '/');
+        },100);
+        // const urlParams = new URL(window.location.href).searchParams;
+        // history.push(urlParams.get('redirect') || '/');
         return;
       }
       console.log(res);
