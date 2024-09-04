@@ -11,12 +11,19 @@
  * @doc https://umijs.org/docs/guides/routes
  */
 export default [
+  { path: '/', name: '欢迎', icon: 'smile', component: './Welcome' },
   {
-    path: '/',
-    name: '主页',
-    icon: 'smile',
-    component: './Index',
+    path: '/interface/list',
+    name: '接口广场',
+    icon: 'RedditOutlined',
+    component: './InterfaceSquare',
   },
+  // {
+  //   path: '/',
+  //   name: '主页',
+  //   icon: 'smile',
+  //   component: './Index',
+  // },
   {
     path: '/interface_info/:id',
     name: '查看接口',

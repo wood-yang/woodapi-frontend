@@ -1,6 +1,6 @@
 ﻿import type { RequestOptions } from '@@/plugin-request/request';
 import type { RequestConfig } from '@umijs/max';
-import { message, notification } from 'antd';
+import { message } from 'antd';
 
 // 错误处理方案： 错误类型
 enum ErrorShowType {
@@ -19,13 +19,9 @@ interface ResponseStructure {
   showType?: ErrorShowType;
 }
 
-/**
- * @name 错误处理
- * pro 自带的错误处理， 可以在这里做自己的改动
- * @doc https://umijs.org/docs/max/request#配置
- */
+const isDev = process.env.NODE_ENV === 'development';
 export const requestConfig: RequestConfig = {
-  baseURL: 'http://localhost:8080',
+  baseURL: isDev ? 'http://localhost:8080' : 'http://116.196.68.160:8101',
   withCredentials: true,
   // 请求拦截器
   requestInterceptors: [

@@ -12,7 +12,7 @@ import {
   ProFormText, useIntl,
 } from '@ant-design/pro-components';
 import { history, useModel, Helmet } from '@umijs/max';
-import { Alert, message, Tabs } from 'antd';
+import { message, Tabs } from 'antd';
 import Settings from '../../../../config/defaultSettings';
 import React, { useState } from 'react';
 import { createStyles } from 'antd-style';
@@ -79,16 +79,16 @@ const Login: React.FC = () => {
       if (res.data) {
         const defaultLoginSuccessMessage = intl.getMessage('pages.login.success', '登录成功！');
         message.success(defaultLoginSuccessMessage);
-        setInitialState({
-          ...initialState,
-          currentUser: res.data
-        });
-        // await fetchUserInfo();
+        // setInitialState({
+        //   ...initialState,
+        //   currentUser: res.data
+        // });
+        await fetchUserInfo();
         // setTimeout解决2次登录跳转问题
-        setTimeout(()=>{
+        // setTimeout(()=>{
           const urlParams = new URL(window.location.href).searchParams;
           history.push(urlParams.get('redirect') || '/');
-        },100);
+        // },100);
         // const urlParams = new URL(window.location.href).searchParams;
         // history.push(urlParams.get('redirect') || '/');
         return;
