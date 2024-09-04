@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
           key: 'github',
           title: (
             <Tooltip title="查看本站技术及源码，欢迎 star">
-              <GithubOutlined/> 支持项目
+              <GithubOutlined/> Github
             </Tooltip>
           ),
           href: 'https://github.com/wood-yang/woodapi',

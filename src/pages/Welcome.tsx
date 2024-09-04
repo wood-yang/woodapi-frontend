@@ -1,9 +1,12 @@
 import {useModel} from '@umijs/max';
 import {Card, theme, Typography} from 'antd';
-import React, {useEffect, useState} from 'react';
-import {Link, useParams} from "@@/exports";
+import React from 'react';
+import {Link} from "@@/exports";
+// import {Link} from "@@/exports";
+// import {useModel} from "@umijs/max";
 // import GetGiftModal from "@/components/Gift/GetGift";
 // import {getUserByInvitationCodeUsingPOST} from "@/services/qiApi-backend/userController";
+import { background } from '@/../public/assets/doc_background.jpg';
 
 
 const {Text, Title} = Typography;
@@ -87,27 +90,6 @@ const InfoCard: React.FC<{
 const Welcome: React.FC = () => {
   const {token} = theme.useToken();
   const {initialState} = useModel('@@initialState');
-  const [open, setOpen] = useState(false);
-  const [data, setData] = useState<API.UserVO>()
-  const params = useParams()
-  // const getUserByInvitationCode = async () => {
-  //   const res = await getUserByInvitationCodeUsingPOST({invitationCode: params.id})
-  //   if (res.code === 0 && res.data) {
-  //     if (initialState?.loginUser && initialState?.loginUser.invitationCode === params.id) {
-  //       // message.error("不能邀请自己")
-  //       return
-  //     }
-  //     if (!initialState?.loginUser) {
-  //       setOpen(true)
-  //       setData(res.data)
-  //     }
-  //   }
-  // }
-  // useEffect(() => {
-  //   if (params.id) {
-  //     getUserByInvitationCode()
-  //   }
-  // }, [])
 
   return (
     <>
@@ -129,7 +111,7 @@ const Welcome: React.FC = () => {
             backgroundRepeat: 'no-repeat',
             backgroundSize: '274px auto',
             backgroundImage:
-              "url('https://gw.alipayobjects.com/mdn/rms_a9745b/afts/img/A*BuFmQqsB2iAAAAAAAAAAAAAAARQnAQ')",
+              background,
           }}
         >
           <div
@@ -138,7 +120,7 @@ const Welcome: React.FC = () => {
               color: token.colorTextHeading,
             }}
           >
-            <Title level={3}> 欢迎使用 Qi-API 接口开放平台 🎉</Title>
+            <Title level={2}> 欢迎使用 Wood-API 接口开放平台 🥳🥳🥳</Title>
           </div>
           <div
             style={{
@@ -151,27 +133,20 @@ const Welcome: React.FC = () => {
             }}
           >
             <Text strong>
-              <Title level={4}>Qi-API 接口开放平台是一个为用户和开发者提供全面API接口调用服务的平台 🛠</Title>
-              <Title level={5}>
-                😀 作为用户您可以通过注册登录账户，获取接口调用权限，并根据自己的需求浏览和选择适合的接口。您可以在线进行接口调试，快速验证接口的功能和效果。
-                <br/>
-                💻 作为开发者 我们提供了
-                <a href="https://github.com/qimu666/qi-api-sdk" target="_blank" rel="noreferrer">
-                  客户端SDK
+              <Title level={3}>Wood-API 接口开放平台是一个为用户和开发者提供全面API接口调用服务的平台 🛠</Title>
+              <Title level={4}>
+                💁 我们为您提供了可供调取的
+                <a href="https://github.com/wood-yang/Wood-API-sdk" target="_blank" rel="noreferrer">
+                  客户端 SDK
                 </a>
                 ，
-                通过
-                <Link to="/account/center">
-                  开发者凭证
-                </Link>
-                即可将轻松集成接口到您的项目中，实现更高效的开发和调用。
+                通过注册账户即可获取所有接口的调用权限，让你获得更方便的体验
                 <br/>
-                🤝 您可以将自己的接口接入到Qi-API 接口开放平台平台上，并发布给其他用户使用。
-                您可以管理和各个接口，以便更好地分析和优化接口性能。
+                🎁 作为用户您浏览和选择您喜欢的接口。并且进行在线调试，快速验证接口的功能和效果。
                 <br/>
-                👌 我们还提供了<a href={"https://doc.qimuu.icu"} target={"_blank"} rel="noreferrer">开发者在线文档</a>和技术支持，帮助您快速接入和发布接口。
+                🐣 您可以将自己的接口上传到 Wood-API 接口开放平台平台上，我们将在审核后为您上线接口。
                 <br/>
-                🏁 无论您是用户还是开发者，Qi-API 接口开放平台都致力于提供稳定、安全、高效的接口调用服务，帮助您实现更快速、便捷的开发和调用体验。
+                🐼 Wood-API 接口开放平台将一直致力于提供易用、可靠、高效的接口调用服务，给您更好的开发和调用体验。
               </Title>
             </Text>
           </div>
@@ -184,43 +159,35 @@ const Welcome: React.FC = () => {
           >
             <InfoCard
               index={1}
-              href="https://api.qimuu.icu/"
+              href="https://woodapi.wood-yang.cn"
               title={<Title level={5}>多样化的接口选择</Title>}
               desc={<Text
-                strong>平台上提供丰富多样的接口供您选择，涵盖了各个领域的功能和服务，满足不同需求。</Text>}
+                strong>平台上提供多种多样的接口供您挑选，拓展了多个领域的功能和服务，旨在满足您的不同需求。</Text>}
             />
             <InfoCard
               index={2}
-              href="https://api.qimuu.icu/"
+              href="https://woodapi.wood-yang.cn"
               title={<Title level={5}>在线调试功能</Title>}
               desc={<Text
-                strong>您可以在平台上进行接口在线调试，快速验证接口的功能和效果，节省了开发调试的时间和工作量。</Text>}
+                strong>您可以在平台上在线调试接口，快速验证接口的功能和效果，迅速了解接口的使用方式。</Text>}
             />
             <InfoCard
               index={3}
-              href="https://api.qimuu.icu/"
+              href="https://woodapi.wood-yang.cn"
               title={<Title level={5}>客户端SDK支持</Title>}
               desc={<Text
-                strong>为了方便开发者集成接口到自己的代码中，平台提供了客户端SDK，使调用接口变得更加简单和便捷。
+                strong>为了方便开发者集成接口到自己的代码中，平台提供了客户端SDK，使调用接口变得更加便捷。
               </Text>}
             />
             <InfoCard
               index={4}
-              href="https://api.qimuu.icu/"
-              title={<Title level={5}>开发者文档和技术支持</Title>}
+              href="https://woodapi.wood-yang.cn"
+              title={<Title level={5}>易用和高效</Title>}
               desc={<Text
-                strong>平台提供了详细的开发者文档和技术支持，帮助开发者快速接入和发布接口，解决遇到的问题和困难。</Text>}
-            />
-            <InfoCard
-              index={5}
-              href="https://api.qimuu.icu/"
-              title={<Title level={5}>稳定和安全</Title>}
-              desc={<Text
-                strong>平台致力于提供稳定和安全的接口调用服务，采用了安全措施和技术手段，保障用户数据的安全性和隐私保护。</Text>}
+                strong>平台致力于提供易用和高效的接口调用服务，采用了多种技术手段，旨在提高您的使用体验。</Text>}
             />
           </div>
         </div>
-        {/*<GetGiftModal data={data} onCancel={() => setOpen(false)} open={open}/>*/}
       </Card>
 
     </>

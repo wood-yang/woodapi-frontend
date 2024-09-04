@@ -3,8 +3,9 @@ import ProCard from "@ant-design/pro-card";
 import {Badge, Card, Image, List, Spin} from "antd";
 import Search from "antd/es/input/Search";
 import {history} from "@umijs/max";
+import rabbit from '@/../public/assets/rabbit.png';
 import {
-  listInterfaceInfoByPageUsingPost
+  listInterfaceInfoByPageUsingGet
 } from "@/services/woodapi-backend/interfaceInfoController";
 
 const InterfaceSquare: React.FC = () => {
@@ -15,20 +16,22 @@ const InterfaceSquare: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const loadData = async (current = 1) => {
-    // setLoading(true)
-    const res = await listInterfaceInfoByPageUsingPost({
+    setLoading(true)
+    const res = await listInterfaceInfoByPageUsingGet({
       current: current,
-      name: searchText,
+      searchText: searchText,
+      // name: searchText,
       pageSize: pageSize,
-      // sortField: 'totalInvokeNum',
-      // sortOrder: 'descend',
-      description: searchText,
+      sortField: 'totalInvokeNum',
+      sortOrder: 'descend',
+      // description: searchText,
     });
     if (res.code === 0 && res.data) {
       setData(res?.data?.records || []);
       setTotal(res.data.total)
       setLoading(false)
-    } else {
+    }
+    else {
       setLoading(false)
     }
   };
@@ -37,16 +40,16 @@ const InterfaceSquare: React.FC = () => {
     loadData();
   }, []);
 
-  // const onSearch = async () => {
-  //   const res = await listInterfaceInfoByPageUsingPost({
-  //     current: 1,
-  //     searchText: searchText,
-  //   });
-  //   if (res.data) {
-  //     setData(res?.data?.records || []);
-  //     setTotal(res?.data?.total || 0)
-  //   }
-  // };
+  const onSearch = async () => {
+    const res = await listInterfaceInfoByPageUsingGet({
+      current: 1,
+      searchText: searchText,
+    });
+    if (res.data) {
+      setData(res?.data?.records || []);
+      setTotal(res?.data?.total || 0)
+    }
+  };
 
   return (
     <>
@@ -62,8 +65,8 @@ const InterfaceSquare: React.FC = () => {
             size={"large"}
             maxLength={50}
             enterButton="搜索"
-            placeholder={"没有找到心仪的接口？快搜索一下吧"}
-            // onSearch={onSearch}
+            placeholder={"快来搜索你想要的接口吧"}
+            onSearch={onSearch}
             style={{maxWidth: 600, height: 60}}/>
         </ProCard>
       </Card>
@@ -90,18 +93,18 @@ const InterfaceSquare: React.FC = () => {
           dataSource={data}
           renderItem={(item, index) => (
             <List.Item>
-              <ProCard key={index} bordered hoverable direction="column" style={{height: 270}}>
+              <ProCard key={index} bordered hoverable direction="column" style={{height: 320}}>
                 <ProCard layout="center" onClick={() => {
                   history.push(`/interface_info/${item.id}`)
                 }}>
-                  {/*<Badge count={item.totalInvokes} overflowCount={999999999} color='#eb4d4b'>*/}
-                  {/*  <Image style={{width: 80, borderRadius: 8, marginLeft: 10}}*/}
-                  {/*         src={item?.avatarUrl ?? "https://img.qimuu.icu/typory/logo.gif"}*/}
-                  {/*         fallback={"https://img.qimuu.icu/typory/logo.gif"}*/}
-                  {/*         alt={item.name}*/}
-                  {/*         preview={false}*/}
-                  {/*  />*/}
-                  {/*</Badge>*/}
+                  <Badge.Ribbon text={item.totalInvokeNum} color="pink">
+                    <Image style={{width: 180, borderRadius: 8, marginLeft: 0}}
+                           src={item?.avatarUrl ?? rabbit}
+                           fallback={rabbit}
+                           alt={item.name}
+                           preview={false}
+                    />
+                  </Badge.Ribbon>
                 </ProCard>
                 <ProCard onClick={() => {
                   history.push(`/interface_info/${item.id}`)

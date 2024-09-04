@@ -2,7 +2,7 @@ import { PageContainer } from '@ant-design/pro-components';
 import '@umijs/max';
 import React, {useEffect, useState} from 'react';
 import ReactECharts from 'echarts-for-react';
-import {getTopInterfaceInvokeUsingGet} from "@/services/woodapi-backend/analysisController";
+import {analysisInterfaceInfoUsingGet} from "@/services/woodapi-backend/analysisController";
 
 /**
  * 接口分析
@@ -14,7 +14,7 @@ const InterfaceAnalysis: React.FC = () => {
 
   useEffect(() => {
     try {
-      getTopInterfaceInvokeUsingGet().then(res => {
+      analysisInterfaceInfoUsingGet().then(res => {
         if (res.data) {
           setData(res.data);
         }
