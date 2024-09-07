@@ -1,19 +1,15 @@
 import { Footer } from '@/components';
-import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import {
   LockOutlined,
-  MobileOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import {
   LoginForm,
-  ProFormCaptcha,
   ProFormCheckbox,
   ProFormText, useIntl,
 } from '@ant-design/pro-components';
 import { history, useModel, Helmet } from '@umijs/max';
 import { message, Tabs } from 'antd';
-import Settings from '../../../../config/defaultSettings';
 import React, { useState } from 'react';
 import { createStyles } from 'antd-style';
 import {userLoginUsingPost} from "@/services/woodapi-backend/userController";
@@ -101,37 +97,12 @@ const Login: React.FC = () => {
       message.error(defaultLoginFailureMessage);
     }
   }
-  // const handleSubmit = async (values: API.UserLoginRequest) => {
-  //   try {
-  //     // 登录
-  //     const res = await userLoginUsingPost({
-  //       ...values,
-  //     });
-  //     if (res.data) {
-  //       const urlParams = new URL(window.location.href).searchParams;
-  //       const href = window.location.href;
-  //       if (urlParams.get('redirect') || '/') {
-  //         history.push(urlParams.get('redirect') || '/');
-  //       }
-  //       else {
-  //         history.push(urlParams.get('redirect') || '/');
-  //       }
-  //       setInitialState({
-  //         loginUser: res.data
-  //       });
-  //       return;
-  //     }
-  //   } catch (error) {
-  //     const defaultLoginFailureMessage = '登录失败，请重试！';
-  //     console.log(error);
-  //     message.error(defaultLoginFailureMessage);
-  //   }
-  // };
+
   return (
     <div className={styles.container}>
       <Helmet>
         <title>
-          {'登录'}- {Settings.title}
+          {'Wood API 接口开放平台'}
         </title>
       </Helmet>
       <div
@@ -145,32 +116,28 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/logo.svg" />}
-          title="Wood API Center"
-          subTitle={'Wood API Center 非常好滴一个接口平台捏'}
+          logo={<img alt="logo" src="/whale.jpg" />}
+          title="Wood API"
+          subTitle={'为您提供一个高效易用的接口开放平台'}
           initialValues={{
             autoLogin: true,
           }}
-          // actions={['其他登录方式 :', <ActionIcons key="icons" />]}
           onFinish={async (values) => {
             await handleSubmit(values as API.UserLoginRequest);
+            // await handleSubmit(values as API.UserLoginRequest);
           }}
         >
-          <Tabs
-            activeKey={type}
-            onChange={setType}
-            centered
-            items={[
-              {
-                key: 'account',
-                label: '账户密码登录',
-              },
-              {
-                key: 'mobile',
-                label: '手机号登录',
-              },
-            ]}
-          />
+          {/*<Tabs*/}
+          {/*  activeKey={type}*/}
+          {/*  onChange={setType}*/}
+          {/*  centered*/}
+          {/*  items={[*/}
+          {/*    {*/}
+          {/*      key: 'account',*/}
+          {/*      label: '用户登录',*/}
+          {/*    }*/}
+          {/*  ]}*/}
+          {/*/>*/}
 
           {type === 'account' && (
             <>
@@ -180,7 +147,7 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <UserOutlined />,
                 }}
-                placeholder={'请输入用户名'}
+                placeholder={'请输入用户名：root'}
                 rules={[
                   {
                     required: true,
@@ -194,7 +161,7 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <LockOutlined />,
                 }}
-                placeholder={'请输入密码'}
+                placeholder={'请输入密码：1234'}
                 rules={[
                   {
                     required: true,
@@ -205,60 +172,6 @@ const Login: React.FC = () => {
             </>
           )}
 
-          {type === 'mobile' && (
-            <>
-              <ProFormText
-                fieldProps={{
-                  size: 'large',
-                  prefix: <MobileOutlined />,
-                }}
-                name="mobile"
-                placeholder={'请输入手机号！'}
-                rules={[
-                  {
-                    required: true,
-                    message: '手机号是必填项！',
-                  },
-                  {
-                    pattern: /^1\d{10}$/,
-                    message: '不合法的手机号！',
-                  },
-                ]}
-              />
-              <ProFormCaptcha
-                fieldProps={{
-                  size: 'large',
-                  prefix: <LockOutlined />,
-                }}
-                captchaProps={{
-                  size: 'large',
-                }}
-                placeholder={'请输入验证码！'}
-                captchaTextRender={(timing, count) => {
-                  if (timing) {
-                    return `${count} ${'秒后重新获取'}`;
-                  }
-                  return '获取验证码';
-                }}
-                name="captcha"
-                rules={[
-                  {
-                    required: true,
-                    message: '验证码是必填项！',
-                  },
-                ]}
-                onGetCaptcha={async (phone) => {
-                  const result = await getFakeCaptcha({
-                    phone,
-                  });
-                  if (!result) {
-                    return;
-                  }
-                  message.success('获取验证码成功！验证码为：1234');
-                }}
-              />
-            </>
-          )}
           <div
             style={{
               marginBottom: 24,
@@ -267,13 +180,13 @@ const Login: React.FC = () => {
             <ProFormCheckbox noStyle name="autoLogin">
               自动登录
             </ProFormCheckbox>
-            <a
-              style={{
-                float: 'right',
-              }}
-            >
-              忘记密码 ?
-            </a>
+            {/*<a*/}
+            {/*  style={{*/}
+            {/*    float: 'right',*/}
+            {/*  }}*/}
+            {/*>*/}
+            {/*  忘记密码 ?*/}
+            {/*</a>*/}
           </div>
         </LoginForm>
       </div>

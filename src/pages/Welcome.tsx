@@ -136,7 +136,7 @@ const Welcome: React.FC = () => {
               <Title level={3}>Wood-API 接口开放平台是一个为用户和开发者提供全面API接口调用服务的平台 🛠</Title>
               <Title level={4}>
                 💁 我们为您提供了可供调取的
-                <a href="https://github.com/wood-yang/Wood-API-sdk" target="_blank" rel="noreferrer">
+                <a href="https://github.com/wood-yang/woodapi-client-sdk" target="_blank" rel="noreferrer">
                   客户端 SDK
                 </a>
                 ，

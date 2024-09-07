@@ -150,13 +150,13 @@ const InterfaceInfoColumns: ProColumns<API.InterfaceInfo>[] = [
   //   copyable: true,
   //   key: 'url',
   // },
-  // {
-  //   title: '返回格式',
-  //   key: "returnFormat",
-  //   dataIndex: 'returnFormat',
-  //   width: 'lg',
-  //   valueType: "text",
-  // },
+  {
+    title: '返回格式',
+    key: "returnFormat",
+    dataIndex: 'returnFormat',
+    width: 'lg',
+    valueType: "text",
+  },
   {
     title: '接口图片',
     dataIndex: 'avatarUrl',

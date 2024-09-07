@@ -21,7 +21,7 @@ interface ResponseStructure {
 
 const isDev = process.env.NODE_ENV === 'development';
 export const requestConfig: RequestConfig = {
-  baseURL: isDev ? 'http://localhost:8080' : 'http://116.196.68.160:8101',
+  baseURL: isDev ? 'http://localhost:8080' : 'http://backend.woodapi.wood-yang.cn',
   withCredentials: true,
   // 请求拦截器
   requestInterceptors: [
